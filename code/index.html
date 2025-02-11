@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Experience 💖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Animated Gradient Background */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ff758c);
+      background-size: 300% 300%;
+      animation: gradientShift 10s ease infinite;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Floating Hearts Animation */
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+    }
+
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    /* Glowing Effect */
+    .glow {
+      text-shadow: 0 0 15px rgba(255, 100, 150, 0.8);
+      animation: glowEffect 2s alternate infinite;
+    }
+
+    @keyframes glowEffect {
+      0% { text-shadow: 0 0 5px #ff4d6d; }
+      100% { text-shadow: 0 0 15px #ff99c8; }
+    }
+
+    /* Button Styling */
+    .button {
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      transition: 0.3s ease-in-out;
+      background-color: #ff66b2;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px pink;
+    }
+
+    .button:hover {
+      background-color: #ff3399;
+    }
+
+  </style>
+</head>
+
+<body>
+  <audio id="backgroundMusic" loop>
+    <source src="./music/romantic_song.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center p-6 glow text-white">
+      <h2 id="welcomeText" class="text-4xl font-bold italic my-4">
+        Welcome! I made something special for you 💖
+      </h2>
+      
+      <img id="imageDisplay" src="./images/image1.gif" alt="Interactive Image"
+        class="rounded-md h-[300px] object-cover shadow-lg" />
+
+      <div class="flex gap-4 pt-[20px]">
+        <button id="nextButton" class="button">Let’s Go! 🎉</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+    const nextButton = document.getElementById('nextButton');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const welcomeText = document.getElementById('welcomeText');
+
+    const imagePaths = [
+      "./images/image2.gif",
+      "./images/image3.gif",
+      "./images/image4.gif"
+    ];
+
+    const interactiveTexts = [
+      "What would you like to do next? 🤔",
+      "Here’s a fun gif! 😂",
+      "This is getting interesting, right? 😏"
+    ];
+
+    let stepCount = 0;
+
+    nextButton.addEventListener('click', () => {
+      if (stepCount < interactiveTexts.length) {
+        welcomeText.textContent = interactiveTexts[stepCount];
+        imageDisplay.src = imagePaths[stepCount % imagePaths.length];
+        stepCount++;
+        createHeart();
+      } else {
+        confetti();
+        nextButton.textContent = "Yay! 🎉 You're awesome!";
+      }
+    });
+
+    window.onload = () => {
+      document.getElementById("backgroundMusic").play();
+      setInterval(createHeart, 800);
+    };
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.innerHTML = "❤️";
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 30 + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 4) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => { heart.remove(); }, 6000);
+    }
+  </script>
+</body>
+</html>
