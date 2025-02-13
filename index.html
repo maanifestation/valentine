@@ -3,65 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Experience 💖</title>
+  <title>For youuu 💖</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Animated Gradient Background */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    /* Background Image with Dark Overlay */
     body {
-      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ff758c);
-      background-size: 300% 300%;
-      animation: gradientShift 10s ease infinite;
+      background: url('./images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
       height: 100vh;
       overflow: hidden;
       position: relative;
     }
 
-    /* Floating Hearts Animation */
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(1); opacity: 1; }
-      100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+    /* Dark Mask Overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
     }
 
-    .heart {
-      position: fixed;
-      color: red;
-      font-size: 20px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-
-    /* Glowing Effect */
-    .glow {
-      text-shadow: 0 0 15px rgba(255, 100, 150, 0.8);
-      animation: glowEffect 2s alternate infinite;
-    }
-
-    @keyframes glowEffect {
-      0% { text-shadow: 0 0 5px #ff4d6d; }
-      100% { text-shadow: 0 0 15px #ff99c8; }
-    }
-
-    /* Button Styling */
+    /* Button Style */
     .button {
       padding: 15px 25px;
       border-radius: 10px;
       font-size: 18px;
+      font-weight: bold;
       transition: 0.3s ease-in-out;
-      background-color: #ff66b2;
+      background-color: black;
       color: white;
       cursor: pointer;
-      box-shadow: 0 0 10px pink;
+      border: 2px solid white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.3s ease-in-out;
+    }
+
+    .button:hover::before {
+      left: 100%;
     }
 
     .button:hover {
-      background-color: #ff3399;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Content Wrapper */
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Text Box with Black Background */
+    .text-box {
+      background: black;
+      color: white;
+      padding: 8px;
+      border-radius: 10px;
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: bold;
+      opacity: 10;
+      transform: translateY(20px);
+      animation: slideIn 0.5s ease-in-out forwards;
+    }
+
+    /* Sliding Animation */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hide Elements Initially */
+    .hidden {
+      display: none;
+    }
+
+    /* Image Styling */
+    #imageDisplay {
+      width: 600px;
+      height: 600px;
+      object-fit: cover;
+      display: block;
+      margin: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      filter: contrast(110%) brightness(105%);
+    }
+
+    /* Romantic Heart Animation (Black and Glowy) */
+    .heart {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      color: black;
+      font-size: 30px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.8);
+      animation: floatHearts 5s ease-in-out infinite;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(100px) translateY(-200px);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateX(200px) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Randomized Heart Spawns */
+    .heart:nth-child(1) {
+      animation-delay: 0s;
+      animation-duration: 6s;
+    }
+    .heart:nth-child(2) {
+      animation-delay: 2s;
+      animation-duration: 8s;
+    }
+    .heart:nth-child(3) {
+      animation-delay: 1s;
+      animation-duration: 7s;
+    }
+    .heart:nth-child(4) {
+      animation-delay: 3s;
+      animation-duration: 5s;
+    }
+    .heart:nth-child(5) {
+      animation-delay: 4s;
+      animation-duration: 9s;
     }
 
   </style>
@@ -69,73 +165,126 @@
 
 <body>
   <audio id="backgroundMusic" loop>
-    <source src="./music/romantic_song.mp3" type="audio/mp3">
+    <source src="./images/say.mp3" type="audio/mp3">
   </audio>
 
-  <div class="flex items-center justify-center h-screen">
-    <div class="flex flex-col items-center p-6 glow text-white">
-      <h2 id="welcomeText" class="text-4xl font-bold italic my-4">
-        Welcome!  💖
-      </h2>
-      
-      <img id="imageDisplay" src="./images/image1.gif" alt="Interactive Image"
-        class="rounded-md h-[300px] object-cover shadow-lg" />
+  <!-- Romantic Hearts Floating Animation -->
+  <div class="heart">❤️</div>
+  <div class="heart">💖</div>
+  <div class="heart">💕</div>
+  <div class="heart">💘</div>
+  <div class="heart">💝</div>
 
-      <div class="flex gap-4 pt-[20px]">
-        <button id="nextButton" class="button">Let’s Go! 🎉</button>
+  <div class="flex items-center justify-center h-screen content">
+    <div class="flex flex-col items-center p-6 text-white">
+      
+      <!-- Initial Welcome Text -->
+      <h2 id="welcomeText" class="text-box">
+        Hey, let’s go for a ride? 🚗💨
+      </h2>
+
+      <!-- First Button -->
+      <button id="rideButton" class="button mt-4">Yes! 🚀</button>
+
+      <!-- Second Question (Initially Hidden) -->
+      <h2 id="musicQuestion" class="text-box hidden">
+        How about some music? 🎵
+      </h2>
+
+      <!-- Second Button (Initially Hidden) -->
+      <button id="musicButton" class="button hidden">Yes! 🎶</button>
+
+      <!-- Interactive Section (Initially Hidden) -->
+      <div id="interactiveSection" class="hidden">
+        <h2 id="interactiveText" class="text-box">
+          Do we look cute together? 🤔
+        </h2>
+        <img id="imageDisplay" src="./images/1.png" />
+        <button id="nextButton" class="button mt-4">Definitely yessss 🎉</button>
       </div>
+
     </div>
   </div>
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 
+    const rideButton = document.getElementById('rideButton');
+    const musicButton = document.getElementById('musicButton');
+    const welcomeText = document.getElementById('welcomeText');
+    const musicQuestion = document.getElementById('musicQuestion');
+    const interactiveSection = document.getElementById('interactiveSection');
     const nextButton = document.getElementById('nextButton');
     const imageDisplay = document.getElementById('imageDisplay');
-    const welcomeText = document.getElementById('welcomeText');
+    const interactiveText = document.getElementById('interactiveText');
 
     const imagePaths = [
-      "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif"
+      "./images/2.jpg",
+      "./images/2.jpg",
+      "./images/3.jpg",
+      "./images/3.jpg",
+      "./images/4.jpg",
+      "./images/5.jpg",
+      "./images/5.jpg",
+      "./images/6.jpg",
+      "./images/6.jpg",
+      "./images/7.jpg",
+      "./images/8.jpg",
+      "./images/8.jpg"
     ];
 
     const interactiveTexts = [
-      "What would you like to do next? 🤔",
-      "Here’s a fun gif! 😂",
-      "This is getting interesting, right? 😏"
+      "You’re my little headache... 😂",
+      "But, this headache helps me sleep soundly at night.",
+      "I can’t get enough of your giggles and your smile 😏.",
+      "Don’t hide it from me.",
+      "I love you, imperfections and all 🌸.",
+      "I’ve got an idea...",
+      "You’ve always said you want to build a home, right? 💕",
+      "Well, I’ve already found mine... 😍",
+      "How about we make a place where I can disturb you without anyone else judging us? ",
+      "Surprised?",
+      "Let’s build it together...",
+      "Here’s to more sleepless nights! 🎉"
     ];
+
 
     let stepCount = 0;
 
+    rideButton.addEventListener('click', () => {
+      welcomeText.classList.add('hidden');
+      rideButton.classList.add('hidden');
+      musicQuestion.classList.remove('hidden');
+      musicQuestion.style.animation = "slideIn 0.5s ease-in-out forwards";
+      musicButton.classList.remove('hidden');
+    });
+
+    musicButton.addEventListener('click', () => {
+      document.getElementById("backgroundMusic").play();
+      musicQuestion.classList.add('hidden');
+      musicButton.classList.add('hidden');
+      interactiveSection.classList.remove('hidden');
+      interactiveText.style.animation = "slideIn 0.5s ease-in-out forwards";
+    });
+
     nextButton.addEventListener('click', () => {
       if (stepCount < interactiveTexts.length) {
-        welcomeText.textContent = interactiveTexts[stepCount];
+        interactiveText.textContent = interactiveTexts[stepCount];
+        interactiveText.style.opacity = 0;
+        interactiveText.style.transform = "translateY(20px)";
+        setTimeout(() => {
+          interactiveText.style.opacity = 1;
+          interactiveText.style.transform = "translateY(0)";
+        }, 100);
         imageDisplay.src = imagePaths[stepCount % imagePaths.length];
         stepCount++;
-        createHeart();
+        nextButton.textContent = "⏩";
       } else {
         confetti();
-        nextButton.textContent = "Yay! 🎉 You're awesome!";
+        nextButton.textContent = "iloveyou";
       }
     });
 
-    window.onload = () => {
-      document.getElementById("backgroundMusic").play();
-      setInterval(createHeart, 800);
-    };
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.innerHTML = "❤️";
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 30 + "px";
-      heart.style.animationDuration = (Math.random() * 2 + 4) + "s";
-      document.body.appendChild(heart);
-
-      setTimeout(() => { heart.remove(); }, 6000);
-    }
   </script>
 </body>
 </html>
